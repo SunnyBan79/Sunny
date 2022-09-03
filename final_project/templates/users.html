@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}로그인 페이지{% endblock %}   
+{% block content %}
+
+<div class="container">
+      
+<div class="row mt-7">
+  <div class="col-12">
+    <table class="table table-light">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">no.</th>
+          <th scope="col">유저명</th>
+          <th scope="col">이메일</th>
+          <th scope="col">가입날짜</th>
+        </tr>
+      </thead>
+      <tbody class="text-dark">
+        {% for user in users %}
+        <tr>
+          <td scope="row">{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.register_date|date:'Y-m-d H:i' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<nav>
+  <ul class="pagination justify-content-center">
+    {% if users.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ users.previous_page_number }}">이전으로</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#">이전으로</a>
+    </li>
+    {% endif %}
+    <li class="page-item active">
+      <a class="page-link" href="#">{{ users.number }} / {{ users.paginator.num_pages }}</a>
+    </li>
+    {% if users.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ users.next_page_number }}">다음으로</a>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link disabled" href="#">다음으로</a>
+    {% endif %}
+    </li>
+  </ul>
+</nav>
+</div>
+{% endblock %}
